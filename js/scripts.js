@@ -197,3 +197,19 @@ function fillContent() {
   let footer = document.getElementById("footer");
   footer.innerHTML = footerContent;
 }
+
+function defaultHeaderButtons() {
+  let navDesktop = document.getElementById('nav-desktop');
+  let navMobile = document.getElementById('nav-mobile');
+
+  navDesktop.innerHTML += `
+            <li>${login}</li>
+            <li><a href="${websiteUrl}/new-post.html">New Post</a></li>
+            <li><a href="#" onclick="logoutUser()">Log Out</a></li>
+            `
+  navMobile.innerHTML += `
+            <li>${login}</li>
+            <li><a href="${websiteUrl}/new-post.html">New Post</a></li>
+            <li><a href="#" onclick="logoutUser()">Log Out</a></li>
+            `
+}

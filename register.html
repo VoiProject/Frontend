@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
   <title>Voi - Register</title>
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
 
   <link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
 </head>
+
 <body>
   <nav class="green lighten-1" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" href="/" class="brand-logo voi">Voi</a>
@@ -29,26 +31,26 @@
     <div class="col s12 m6 l4" id="post_page">
 
 
-<div class="card darken-1">
-  <div class="card-content">
-    <form>
-      <h4>Register</h4>
-      <div class="input-field">
-        <input type="text" id="email">
-        <label for="last_name">login</label>
+      <div class="card darken-1">
+        <div class="card-content">
+          <form>
+            <h4>Register</h4>
+            <div class="input-field">
+              <input type="text" id="email">
+              <label for="last_name">login</label>
+            </div>
+            <div class="input-field">
+              <input type="password" id="password">
+              <label for="last_name">password</label>
+            </div>
+            <button type="button" class="btn waves-effect waves-light green" onclick="registerUser()">Register
+              <i class="material-icons right">send</i>
+            </button>
+            <br><br>
+            <p class="center">Already have an account? <a onclick="goToPage(`/login.html`)">Login</a>.</p>
+          </form>
+        </div>
       </div>
-      <div class="input-field">
-        <input type="password" id="password">
-        <label for="last_name">password</label>
-      </div>
-      <button type="button" class="btn waves-effect waves-light green" onclick="registerUser()">Register
-        <i class="material-icons right">send</i>
-      </button>
-      <br><br>
-      <p class="center">Already have an account? <a onclick="goToPage(`/login.html`)">Login</a>.</p>
-    </form>
-  </div>
-</div>
 
     </div>
   </div>
@@ -66,29 +68,20 @@
     let email = window.localStorage.getItem('user_email');
     let id = getCookie('user_id');
 
-    let navDesktop = document.getElementById('nav-desktop');
-    let navMobile = document.getElementById('nav-mobile');
-
     if (id == null) {
-        navDesktop.innerHTML += `<li><a href="${websiteUrl}/login.html">Log In</a></li>`;
-        navMobile.innerHTML += `<li><a href="${websiteUrl}/login.html">Log In</a></li>`;
+      let navDesktop = document.getElementById('nav-desktop');
+      let navMobile = document.getElementById('nav-mobile');
+      navDesktop.innerHTML += `<li><a href="${websiteUrl}/login.html">Log In</a></li>`;
+      navMobile.innerHTML += `<li><a href="${websiteUrl}/login.html">Log In</a></li>`;
     } else {
-        navDesktop += `
-        <li>${email}</li>
-        <li><a href="${websiteUrl}/new-post.html">New Idea</a></li>
-        <li><a href="#" onclick="logoutUser()">Log Out</a></li>
-        `;
-        navMobile += `
-        <li>${email}</li>
-        <li><a href="${websiteUrl}/new-post.html">New Idea</a></li>
-        <li><a href="#" onclick="logoutUser()">Log Out</a></li>
-        `;
+      defaultHeaderButtons();
 
-        window.location.href = `${websiteUrl}/index.html`;
+      window.location.href = `${websiteUrl}/index.html`;
 
     }
     fillContent();
   </script>
 
-  </body>
+</body>
+
 </html>

@@ -70,21 +70,14 @@
     let navMobile = document.getElementById('nav-mobile');
 
     if (id == null) {
-        navDesktop.innerHTML += `<li><a href="${websiteUrl}/login.html">Log In</a></li>`;
-        navMobile.innerHTML += `<li><a href="${websiteUrl}/login.html">Log In</a></li>`;
+      let navDesktop = document.getElementById('nav-desktop');
+      let navMobile = document.getElementById('nav-mobile');
+      navDesktop.innerHTML += `<li><a href="${websiteUrl}/login.html">Log In</a></li>`;
+      navMobile.innerHTML += `<li><a href="${websiteUrl}/login.html">Log In</a></li>`;
     } else {
-        navDesktop += `
-        <li>${email}</li>
-        <li><a href="${websiteUrl}/new-post.html">New Idea</a></li>
-        <li><a href="#" onclick="logoutUser()">Log Out</a></li>
-        `;
-        navMobile += `
-        <li>${email}</li>
-        <li><a href="${websiteUrl}/new-post.html">New Idea</a></li>
-        <li><a href="#" onclick="logoutUser()">Log Out</a></li>
-        `;
+      defaultHeaderButtons();
 
-        window.location.href = `${websiteUrl}/index.html`;
+      window.location.href = `${websiteUrl}/index.html`;
 
     }
     fillContent();

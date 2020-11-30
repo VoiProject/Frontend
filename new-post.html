@@ -83,22 +83,11 @@
         .then(response => response.json())
         .then(result => {
           let login = result['login'];
-          let navDesktop = document.getElementById('nav-desktop');
-          let navMobile = document.getElementById('nav-mobile');
 
           if (id == null) {
             window.location.href = websiteUrl + "/login.html";
           } else {
-            navDesktop.innerHTML += `
-        <li>${login}</li>
-        <li><a href="${websiteUrl}/new-post.html">New Idea</a></li>
-        <li><a href="#" onclick="logoutUser()">Log Out</a></li>
-        `
-            navMobile.innerHTML += `
-        <li>${login}</li>
-        <li><a href="${websiteUrl}/new-post.html">New Idea</a></li>
-        <li><a href="#" onclick="logoutUser()">Log Out</a></li>
-        `
+            defaultHeaderButtons();
           }
         })
     }
