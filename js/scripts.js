@@ -61,7 +61,7 @@ function getPostInfo() {
 
       <div class="card darken-1">
         <div class="card-content">
-          <audio controls="" src="${data['audio_file_link']}"></audio>
+          <audio controls="" src="api/audio/${data['audio_file_link']}"></audio>
         </div>
       </div>
 
@@ -71,13 +71,8 @@ function getPostInfo() {
         </div>
       </div>
       <div class="card darken-1">
-        <div class="card-content">
-          <p>${data['long_description']}</p>
-        </div>
-      </div>
-      <div class="card darken-1">
         <div class="card-content grey-text">
-          <p>Author: ${user_data['login']}</p>
+          <p>by ${user_data['login']}</p>
         </div>
       </div>
       `
@@ -97,7 +92,6 @@ function addPost() {
   const params = {
     title: document.getElementById('idea_title').value,
     short_description: document.getElementById('idea_short_desc').value,
-    long_description: document.getElementById('idea_full_desc').value
   }
 
   let form_data = new FormData();
