@@ -199,17 +199,23 @@ function fillContent() {
 }
 
 function defaultHeaderButtons() {
-  let navDesktop = document.getElementById('nav-desktop');
-  let navMobile = document.getElementById('nav-mobile');
+  fetch(api + 'user/' + id)
+    .then(response => response.json())
+    .then(result => {
+      let login = result['login'];
 
-  navDesktop.innerHTML += `
+      let navDesktop = document.getElementById('nav-desktop');
+      let navMobile = document.getElementById('nav-mobile');
+
+      navDesktop.innerHTML += `
             <li>${login}</li>
             <li><a href="${websiteUrl}/new-post.html">New Post</a></li>
             <li><a href="#" onclick="logoutUser()">Log Out</a></li>
             `
-  navMobile.innerHTML += `
+      navMobile.innerHTML += `
             <li>${login}</li>
             <li><a href="${websiteUrl}/new-post.html">New Post</a></li>
             <li><a href="#" onclick="logoutUser()">Log Out</a></li>
             `
+    })
 }

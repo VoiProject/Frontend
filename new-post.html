@@ -79,17 +79,7 @@
     if (id == null) {
       window.location.href = websiteUrl + "/login.html";
     } else {
-      fetch(api + 'user/' + id)
-        .then(response => response.json())
-        .then(result => {
-          let login = result['login'];
-
-          if (id == null) {
-            window.location.href = websiteUrl + "/login.html";
-          } else {
-            defaultHeaderButtons();
-          }
-        })
+      defaultHeaderButtons();
     }
     fillContent();
   </script>
