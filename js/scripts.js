@@ -1,11 +1,8 @@
-let api = 'http://35.222.187.209/api/'
+let api = window.location.origin + '/api/'
 let websiteUrl = window.location.origin
-if (window.location.origin.startsWith('file'))
-  websiteUrl = 'file:///C:/work/Voi/Frontend';
-  api = 'http://127.0.0.1/api/';
 
 function getFeed() {
-  const id = window.localStorage.getItem('user_id');
+  const id = getCookie('user_id');
 
   fetch(api + 'feed/' + id, {
     headers: {
@@ -15,8 +12,8 @@ function getFeed() {
     .then((response) => response.json())
     .then(data => {
       let posts = data['user_feed'];
-      posts.forEach((post)=>{
-        addPostPreview(post['title'], post['short_description'], post['long_description'], post['id']);
+      posts.forEach((post) => {
+        addPostPreview(post['title'], post['short_description'], post['author_id'], post['id']);
       })
     });
 }
@@ -28,7 +25,7 @@ function addPostPreview(title, shortDescription, author, postId) {
   newPost += '\t\t<span class="card-title">' + title + '</span>\n';
   newPost += '\t\t<p>' + shortDescription + '</p>\n';
   newPost += '\t</div>\n\t<div class="card-action">\n';
-  newPost += '\t\t<a href="' + websiteUrl + 'post.html?id=' + postId + '">READ FULL</a>\n';
+  newPost += '\t\t<a href="' + websiteUrl + '/post.html?id=' + postId + '">READ FULL</a>\n';
   newPost += '\t\t<span class="grey-text">' + author + '</span>\n';
   newPost += '\t</div>\n</div>\n\n';
 
@@ -42,18 +39,13 @@ function getPostInfo() {
   let postId = currentUrl.searchParams.get('id');
 
   fetch(api + 'post/' + postId, {
-    headers: {
-      'Content-Type': 'application/json',
-    }
   })
     .then((response) => response.json())
     .then(data => {
-
       fetch(api + 'user/' + data['author_id'])
         .then((response_user) => response_user.json())
         .then(user_data => {
           let postPage = document.getElementById('post_page');
-
           postPage.innerHTML += `  
       <div class="card darken-1">
         <div class="card-content">
@@ -67,7 +59,7 @@ function getPostInfo() {
       </div>
       <div class="card darken-1">
         <div class="card-content">
-          <p>${data['full_description']}</p>
+          <p>${data['long_description']}</p>
         </div>
       </div>
       <div class="card darken-1">
@@ -89,23 +81,19 @@ function addPost() {
   var url = new URL(api + 'post');
 
   const params = {
-    author_id: window.localStorage.getItem('user_id'),
     title: document.getElementById('idea_title').value,
     short_description: document.getElementById('idea_short_desc').value,
     long_description: document.getElementById('idea_full_desc').value
   }
 
-  Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
-
   fetch(url, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
+    body: JSON.stringify(params),
   })
     .then(response => response.json())
-    .then(data => { })
+    .then(data => {
+      window.location.href = websiteUrl + '/post.html?id=' + data['post_id'];
+    })
     .catch((error) => {
       window.alert('Something went wrong! Try again later...')
     });
@@ -122,22 +110,16 @@ async function loginUser() {
     pwd_hash: document.getElementById('password').value
   }
 
-  Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
-
   fetch(url, {
     method: 'POST',
+    body: JSON.stringify(params)
   })
-    .then(response => {
-      print(response);
-      response.json();
-    })
+    .then((response => response.json()))
     .then(data => {
-      console.log(data);
-      window.localStorage.setItem('user_id', data['id']);
+      console.log("Got login info" + data)
 
-      window.location.href = websiteUrl + 'index.html';
+      window.location.href = websiteUrl + '/index.html';
     })
-
 }
 
 // Logout
@@ -145,7 +127,8 @@ async function loginUser() {
 function logoutUser() {
   window.localStorage.removeItem('user_id');
   window.localStorage.removeItem('user_email');
-  window.location.href = websiteUrl+"/login.html";
+  window.location.href = websiteUrl + "/login.html";
+  document.cookie.split(";").forEach(function (c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
 }
 
 // Register
@@ -159,17 +142,15 @@ function registerUser() {
     pwd_hash: document.getElementById('password').value
   }
 
-  Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
-
   fetch(url, {
     method: 'POST',
+    body: JSON.stringify(params)
   })
     .then(response => response.json())
     .then(data => {
-      console.log(data);
-      window.localStorage.setItem('user_id', data['id']);
+      console.log("Got register info" + data)
 
-      window.location.href = websiteUrl + 'index.html';
+      window.location.href = websiteUrl + '/index.html';
     })
 
 }
@@ -178,4 +159,41 @@ function registerUser() {
 
 function goToPage(pageEndpoint) {
   window.location.href = websiteUrl + pageEndpoint
+}
+
+function getCookie(name) {
+  let matches = document.cookie.match(new RegExp(
+    "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+  ));
+  return matches ? decodeURIComponent(matches[1]) : undefined;
+}
+
+
+
+let footerContent = `
+<div class="container">
+<div class="row">
+  <div class="col l6 s12">
+    <h5 class="white-text voi">Voi</h5>
+  </div>
+  <div class="col l6 s12">
+    <h5 class="white-text">Social Networks</h5>
+    <ul>
+      <li><a class="white-text" href="#!">Instagram</a></li>
+      <li><a class="white-text" href="#!">Twitter</a></li>
+      <li><a class="white-text" href="#!">YouTube</a></li>
+    </ul>
+  </div>
+</div>
+</div>
+<div class="footer-copyright">
+<div class="container">
+  Made by  Yarema Sergei and Mykyta Oliinyk
+</div>
+</div>
+  `
+
+function fillContent() {
+  let footer = document.getElementById("footer");
+  footer.innerHTML = footerContent;
 }

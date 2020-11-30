@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-  <title>Voi - New Post</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+  <title>finish.me - New Post</title>
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
 
   <link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
 </head>
+
 <body>
   <nav class="green lighten-1" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo finish_me">Voi</a>
+    <div class="nav-wrapper container"><a id="logo-container" href="/" class="brand-logo voi">Voi</a>
       <ul class="right hide-on-med-and-down">
       </ul>
-
+      <ul id="nav-desktop" class="right nav-desktop">
+      </ul>
       <ul id="nav-mobile" class="sidenav">
       </ul>
       <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
@@ -29,59 +32,36 @@
     <div class="container" id="post_page">
 
 
-<div class="card darken-1">
-  <div class="card-content">
-    <form>
-      <h4>Idea Title</h4>
-      <div class="input-field">
-        <input type="text" id="idea_title" data-length="10">
-        <label for="last_name">Idea Title (max. 63)</label>
-      </div>
-      <h4>Short Description</h4>
-      <div class="input-field">
-        <textarea class="materialize-textarea" id="idea_short_desc" data-length="255"></textarea>
-        <label for="textarea1">Short Description (max. 255)</label>
-      </div>
-      <h4>Full Description</h4>
-      <div class="input-field">
-        <textarea class="materialize-textarea" id="idea_full_desc" data-length="1023"></textarea>
-        <label for="textarea1">Full Description (max. 1023)</label>
-      </div>
-      <button class="btn waves-effect waves-light" type="submit" name="action" onclick="addPost()">Submit
-        <i class="material-icons right">send</i>
-      </button>
-    </form>
-  </div>
-</div>
-
-    </div>
-  </div>
-
-  <footer class="page-footer green">
-    <div class="container">
-      <div class="row">
-        <div class="col l6 s12">
-          <h5 class="white-text finish_me">Voi</h5>
-          <p class="grey-text text-lighten-4">We are a team of IPS-41 Students Oleynik Mykita, Yarema Sergei.</p>
-
-
-        </div>
-        <div class="col l6 s12">
-          <h5 class="white-text">Social Networks</h5>
-          <ul>
-            <li><a class="white-text" href="#!">Instagram</a></li>
-            <li><a class="white-text" href="#!">Twitter</a></li>
-            <li><a class="white-text" href="#!">YouTube</a></li>
-            <li><a class="white-text" href="#!">ISQ</a></li>
-          </ul>
+      <div class="card darken-1">
+        <div class="card-content">
+          <form>
+            <h4>Idea Title</h4>
+            <div class="input-field">
+              <input type="text" id="idea_title" data-length="10">
+              <label for="last_name">Idea Title (max. 63)</label>
+            </div>
+            <h4>Short Description</h4>
+            <div class="input-field">
+              <textarea class="materialize-textarea" id="idea_short_desc" data-length="255"></textarea>
+              <label for="textarea1">Short Description (max. 255)</label>
+            </div>
+            <h4>Full Description</h4>
+            <div class="input-field">
+              <textarea class="materialize-textarea" id="idea_full_desc" data-length="1023"></textarea>
+              <label for="textarea1">Full Description (max. 1023)</label>
+            </div>
+            <button type="button" class="btn waves-effect waves-light" type="submit" name="action"
+              onclick="addPost()">Submit
+              <i class="material-icons right">send</i>
+            </button>
+          </form>
         </div>
       </div>
+
     </div>
-    <div class="footer-copyright">
-      <div class="container">
-      Made by Oleynik Mykita, Yarema Sergei
-      </div>
-    </div>
+  </div>
+
+  <footer id="footer" class="page-footer green">
   </footer>
 
 
@@ -91,28 +71,39 @@
   <script src="js/init.js"></script>
   <script src="js/scripts.js"></script>
   <script>
-    let email = window.localStorage.getItem('user_email');
-    let id = window.localStorage.getItem('user_id');
+    let id = getCookie('user_id');
 
     let navDesktop = document.getElementById('nav-desktop');
     let navMobile = document.getElementById('nav-mobile');
 
     if (id == null) {
-        // navDesktop.innerHTML += `<li><a href="https://finish-me.tochanenko.com/login.html">Log In</a></li>`;
-        // navMobile.innerHTML += `<li><a href="https://finish-me.tochanenko.com/login.html">Log In</a></li>`;
-        window.location.href = "https://finish-me.tochanenko.com/login.html";
+      window.location.href = websiteUrl + "/login.html";
     } else {
-        navDesktop += `
-        <li>${email}</li>
-        <li><a href="https://finish-me.tochanenko.com/new-post.html">New Idea</a></li>
+      fetch(api + 'user/' + id)
+        .then(response => response.json())
+        .then(result => {
+          let login = result['login'];
+          let navDesktop = document.getElementById('nav-desktop');
+          let navMobile = document.getElementById('nav-mobile');
+
+          if (id == null) {
+            window.location.href = websiteUrl + "/login.html";
+          } else {
+            navDesktop.innerHTML += `
+        <li>${login}</li>
+        <li><a href="${websiteUrl}/new-post.html">New Idea</a></li>
         <li><a href="#" onclick="logoutUser()">Log Out</a></li>
         `
-        navMobile += `
-        <li>${email}</li>
-        <li><a href="https://finish-me.tochanenko.com/new-post.html">New Idea</a></li>
+            navMobile.innerHTML += `
+        <li>${login}</li>
+        <li><a href="${websiteUrl}/new-post.html">New Idea</a></li>
         <li><a href="#" onclick="logoutUser()">Log Out</a></li>
         `
+          }
+        })
     }
+    fillContent();
   </script>
-  </body>
+</body>
+
 </html>

@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-  <title>Voi - Login</title>
+  <title>finish.me - Login</title>
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -15,7 +15,7 @@
 </head>
 <body>
   <nav class="green lighten-1" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo finish_me">Voi</a>
+    <div class="nav-wrapper container"><a id="logo-container" href="/" class="brand-logo voi">Voi</a>
       <ul class="right hide-on-med-and-down" id="nav-desktop">
       </ul>
 
@@ -41,7 +41,7 @@
         <input type="password" id="password">
         <label for="last_name">password</label>
       </div>
-      <button class="btn waves-effect waves-light green" onclick="loginUser()">Log In
+      <button type="button" class="btn waves-effect waves-light green" onclick="loginUser()">Log In
         <i class="material-icons right">send</i>
       </button>
       <br><br>
@@ -53,31 +53,7 @@
     </div>
   </div>
 
-  <footer class="page-footer green">
-    <div class="container">
-      <div class="row">
-        <div class="col l6 s12">
-          <h5 class="white-text finish_me">Voi</h5>
-          <p class="grey-text text-lighten-4">We are a team of IPS-41 Students Oleynik Mykita, Yarema Sergei.</p>
-
-
-        </div>
-        <div class="col l6 s12">
-          <h5 class="white-text">Social Networks</h5>
-          <ul>
-            <li><a class="white-text" href="#!">Instagram</a></li>
-            <li><a class="white-text" href="#!">Twitter</a></li>
-            <li><a class="white-text" href="#!">YouTube</a></li>
-            <li><a class="white-text" href="#!">ISQ</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="footer-copyright">
-      <div class="container">
-      Made by Oleynik Mykita, Yarema Sergei
-      </div>
-    </div>
+  <footer id="footer" class="page-footer green">
   </footer>
 
 
@@ -88,7 +64,7 @@
   <script src="js/scripts.js"></script>
   <script>
     let email = window.localStorage.getItem('user_email');
-    let id = window.localStorage.getItem('user_id');
+    let id = getCookie('user_id');
 
     let navDesktop = document.getElementById('nav-desktop');
     let navMobile = document.getElementById('nav-mobile');
@@ -111,6 +87,7 @@
         window.location.href = `${websiteUrl}/index.html`;
 
     }
+    fillContent();
   </script>
 
   </body>
