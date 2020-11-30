@@ -1,6 +1,8 @@
 let api = window.location.origin + '/api/'
 let websiteUrl = window.location.origin
 
+let current_audio_file = null;
+
 function getFeed() {
   const id = getCookie('user_id');
 
@@ -13,23 +15,27 @@ function getFeed() {
     .then(data => {
       let posts = data['user_feed'];
       posts.forEach((post) => {
-        addPostPreview(post['title'], post['short_description'], post['author_id'], post['id']);
+        addPostPreview(post['title'], post['short_description'], post['author_id'], post['id'], post['audio_file_link']);
       })
     });
 }
 
-function addPostPreview(title, shortDescription, author, postId) {
+function addPostPreview(title, shortDescription, author, postId, audio_file_link) {
   let feed = document.getElementById('main_feed');
 
-  newPost = '<div class="card darken-1">\n\t<div class="card-content">\n';
-  newPost += '\t\t<span class="card-title">' + title + '</span>\n';
-  newPost += '\t\t<p>' + shortDescription + '</p>\n';
-  newPost += '\t</div>\n\t<div class="card-action">\n';
-  newPost += '\t\t<a href="' + websiteUrl + '/post.html?id=' + postId + '">READ FULL</a>\n';
-  newPost += '\t\t<span class="grey-text">' + author + '</span>\n';
-  newPost += '\t</div>\n</div>\n\n';
+  fetch(api + 'user/' + author).then((response) => response.json()).then(data =>{
+    newPost = '<div class="card darken-1">\n\t<div class="card-content">\n';
+    newPost += '\t\t<div class="card-title">' + title + '</div>\n';
+    newPost += '\t\t<div class="grey-text"> by ' + data['login'] + '</div>\n';
+    newPost += '\t\t <audio style="padding: 10px; width: 100%;" controls="" src="api/audio/' + audio_file_link + '"></audio>\n';
+    newPost += '\t</div>\n\t<div class="card-action">\n';
+    newPost += '\t\t<a href="' + websiteUrl + '/post.html?id=' + postId + '">EXPAND</a>\n';
+    newPost += '\t</div>\n</div>\n\n';
+  
+    feed.innerHTML += newPost;
+  })
 
-  feed.innerHTML += newPost;
+
 }
 
 // Single Post View
@@ -52,6 +58,13 @@ function getPostInfo() {
           <span class="card-title"><h3>${data['title']}</h3></span>
         </div>
       </div>
+
+      <div class="card darken-1">
+        <div class="card-content">
+          <audio controls="" src="${data['audio_file_link']}"></audio>
+        </div>
+      </div>
+
       <div class="card darken-1">
         <div class="card-content">
           <p>${data['short_description']}</p>
@@ -66,7 +79,8 @@ function getPostInfo() {
         <div class="card-content grey-text">
           <p>Author: ${user_data['login']}</p>
         </div>
-      </div>`
+      </div>
+      `
         });
     })
     .catch((error) => {
@@ -78,7 +92,7 @@ function getPostInfo() {
 
 function addPost() {
 
-  var url = new URL(api + 'post');
+  let url = new URL(api + 'post');
 
   const params = {
     title: document.getElementById('idea_title').value,
@@ -86,15 +100,22 @@ function addPost() {
     long_description: document.getElementById('idea_full_desc').value
   }
 
+  let form_data = new FormData();
+  form_data.append('file', current_audio_file);
+  form_data.append('data', JSON.stringify(params));
+
+  console.log("Sending " + current_audio_file);
   fetch(url, {
     method: 'POST',
-    body: JSON.stringify(params),
+    body: form_data,
+    cache: 'no-cache',
   })
     .then(response => response.json())
     .then(data => {
       window.location.href = websiteUrl + '/post.html?id=' + data['post_id'];
     })
     .catch((error) => {
+      console.log(error)
       window.alert('Something went wrong! Try again later...')
     });
 }
@@ -266,5 +287,6 @@ const createAudio = audio => {
   audioDisplay.innerHTML = "";
   audioDisplay.append(audioEl)
   // audioEl.play()
-  URL.revokeObjectURL(audio)
+  // URL.revokeObjectURL(audio)
+  current_audio_file = file;
 }
