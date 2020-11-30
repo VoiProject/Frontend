@@ -209,13 +209,71 @@ function defaultHeaderButtons() {
 
       navDesktop.innerHTML += `
             <li>${login}</li>
-            <li><a href="${websiteUrl}/new-post.html">New Post</a></li>
+            <li><a href="${websiteUrl}/new-post.html">New Podcast</a></li>
             <li><a href="#" onclick="logoutUser()">Log Out</a></li>
             `
       navMobile.innerHTML += `
             <li>${login}</li>
-            <li><a href="${websiteUrl}/new-post.html">New Post</a></li>
+            <li><a href="${websiteUrl}/new-post.html">New Podcast</a></li>
             <li><a href="#" onclick="logoutUser()">Log Out</a></li>
             `
     })
+}
+
+
+function uploadAudio() {
+  let fileContent = document.getElementById("file-content");
+  file = fileContent.files[0];
+  handleFile(file);
+}
+
+function listenToAudioDrop() {
+  let audioDrop = document.getElementById("audio-drop");
+  let fileContent = document.getElementById("file-content");
+
+  audioDrop.addEventListener("dragover", function (event) {
+    event.preventDefault();
+  }, false);
+
+  audioDrop.addEventListener("drop", function (event) {
+    event.preventDefault();
+    var file = event.dataTransfer.files[0]
+    console.log(file);
+    handleFile(file);
+  }, false);
+
+  audioDrop.addEventListener("click", ()=>{
+    fileContent.click();
+
+    fileContent.addEventListener('change', () => {
+      file = fileContent.files[0];
+      console.log(file);
+      handleFile(file);
+  })
+  });
+}
+
+function handleFile(file) {
+  const type = file.type.replace(/\/.+/, '')
+
+  console.log("Filename: " + file.name);
+  console.log("Type: " + file.type);
+  console.log("Size: " + file.size + " bytes");
+
+  if (type === "audio")
+    createAudio(file);
+  else
+    alert("Please choose audio file");
+}
+
+const createAudio = audio => {
+  const audioEl = document.createElement('audio')
+  audioEl.setAttribute('controls', '')
+  audioEl.src = URL.createObjectURL(audio)
+  console.log(audioEl)
+  let audioDisplay = document.getElementById("audio-display");
+  audioDisplay.innerHTML = "";
+  audioDisplay.append(audioEl)
+  // audioEl.play()
+  URL.revokeObjectURL(audio)
 }

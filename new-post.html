@@ -35,10 +35,10 @@
       <div class="card darken-1">
         <div class="card-content">
           <form>
-            <h4>Idea Title</h4>
+            <h4>Podcast Title</h4>
             <div class="input-field">
               <input type="text" id="idea_title" data-length="10">
-              <label for="last_name">Idea Title (max. 63)</label>
+              <label for="last_name">Podcast Title (max. 63)</label>
             </div>
             <h4>Short Description</h4>
             <div class="input-field">
@@ -50,6 +50,30 @@
               <textarea class="materialize-textarea" id="idea_full_desc" data-length="1023"></textarea>
               <label for="textarea1">Full Description (max. 1023)</label>
             </div>
+
+            <div id="audio-drop" class="input-field" style="
+                                                            background-color: #61da66;
+                                                            border-radius: 13vh;
+                                                            height: fit-content;
+                                                            width: fit-content;
+                                                            align-items: center;
+                                                            justify-content: center;
+                                                            align-content: center;
+                                                            display: flex;
+                                                            flex-direction: column;
+                                                            padding-top: 10px;
+                                                            padding-bottom: 10px;
+                                                            padding-left: 20px;
+                                                            padding-right: 20px;
+                                                     ">
+              <div>
+                <h4 style="color:azure;">Select Audio or drag it here </h4>
+              </div>
+              <input name="userfile" type="file" id="file-content" onchange="uploadAudio()" style="display: none;"/>
+            </div>
+            <div id="audio-display">
+            </div>
+
             <button type="button" class="btn waves-effect waves-light" type="submit" name="action"
               onclick="addPost()">Submit
               <i class="material-icons right">send</i>
@@ -82,6 +106,8 @@
       defaultHeaderButtons();
     }
     fillContent();
+    listenToAudioDrop();
+
   </script>
 </body>
 
