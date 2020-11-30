@@ -221,12 +221,6 @@ function defaultHeaderButtons() {
 }
 
 
-function uploadAudio() {
-  let fileContent = document.getElementById("file-content");
-  file = fileContent.files[0];
-  handleFile(file);
-}
-
 function listenToAudioDrop() {
   let audioDrop = document.getElementById("audio-drop");
   let fileContent = document.getElementById("file-content");
@@ -238,18 +232,16 @@ function listenToAudioDrop() {
   audioDrop.addEventListener("drop", function (event) {
     event.preventDefault();
     var file = event.dataTransfer.files[0]
-    console.log(file);
     handleFile(file);
   }, false);
 
-  audioDrop.addEventListener("click", ()=>{
+  audioDrop.addEventListener("click", () => {
     fileContent.click();
+  });
 
-    fileContent.addEventListener('change', () => {
-      file = fileContent.files[0];
-      console.log(file);
-      handleFile(file);
-  })
+  fileContent.addEventListener('change', () => {
+    file = fileContent.files[0];
+    handleFile(file);
   });
 }
 
@@ -270,7 +262,6 @@ const createAudio = audio => {
   const audioEl = document.createElement('audio')
   audioEl.setAttribute('controls', '')
   audioEl.src = URL.createObjectURL(audio)
-  console.log(audioEl)
   let audioDisplay = document.getElementById("audio-display");
   audioDisplay.innerHTML = "";
   audioDisplay.append(audioEl)
