@@ -6,7 +6,7 @@ let current_audio_file = null;
 function getFeed() {
   const id = getCookie('user_id');
 
-  fetch(api + 'feed/' + id, {
+  fetch(api + 'feed/', {
     headers: {
       'Content-Type': 'application/json',
     }
