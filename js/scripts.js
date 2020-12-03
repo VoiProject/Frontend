@@ -248,7 +248,7 @@ function getProfileInfo() {
       posts.forEach((post) => {
         console.log(post)
         addPostPreview(post['post']['title'], post['post']['short_description'],
-          post['author_login'], post['post']['author_id'], post['post']['id'], post['likes_count'], post['liked_by_user'], post['comments_count']);
+          post['author_login'], post['post']['author_id'], post['post']['id'], post['likes_count'], post['liked_by_user'], post['comments_count'],post['post']['audio_link']);
       });
     });
 }
