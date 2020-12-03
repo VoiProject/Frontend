@@ -84,7 +84,7 @@ function addPostPreview(title, shortDescription, author, authorId, postId, likes
 
   newPost += '\t\t <audio style="padding: 10px; width: 100%;" controls="" src="api/audio/' + audio_link + '" preload="none"></audio>\n';
 
-  newPost += '\t\t<a href="' + websiteUrl + '/post.html?id=' + postId + '">READ FULL</a>\n';
+  newPost += '\t\t<a href="' + websiteUrl + '/post.html?id=' + postId + '">FULL</a>\n';
   if (authorId != -1) {
     newPost += '\t\t<span class="grey-text"><a href="profile.html?id=' + authorId + '">' + author + '</a>' + '</span>\n';
   }
@@ -135,7 +135,7 @@ function getPostInfo() {
               fetch(api + 'post/is_liked/' + data['id'])
                 .then((response) => response.json())
                 .then(isLikedData => {
-
+                  console.log(data);
                   let likes = likeData['count'];
                   let isLiked = isLikedData['like_state'];
 
@@ -153,6 +153,7 @@ function getPostInfo() {
           <p>${data['short_description']}</p>
         </div>
       </div>
+      <audio style="padding: 10px; width: 100%;" controls="" src="api/audio/${data['audio_link']}" preload="none"></audio>
       <div class="card darken-1">
         <div class="card-content">
           <p>${data['long_description']}</p>
@@ -241,7 +242,7 @@ function getProfileInfo() {
           <p>Cakeday: ${fullRegDate}</p>
         </div>
       </div>
-      <h5>${res['user']['login']} posts</h5>
+      <h5>${res['user']['login']} podcasts</h5>
     `
       let posts = res['user_posts'];
       posts.forEach((post) => {
@@ -252,7 +253,7 @@ function getProfileInfo() {
     });
 }
 
-// Add new Post
+// Add New Podcast
 
 function addPost() {
 
@@ -423,12 +424,12 @@ function defaultHeaderButtons() {
 
       navDesktop.innerHTML += `
             <li><a href="profile.html?id=${id}">${login}</a></li>
-            <li><a href="${websiteUrl}/new-post.html">New Post</a></li>
+            <li><a href="${websiteUrl}/new-post.html">New Podcast</a></li>
             <li><a href="#" onclick="logoutUser()">Log Out</a></li>
             `
       navMobile.innerHTML += `
             <li><a href="profile.html?id=${id}">${login}</a></li>
-            <li><a href="${websiteUrl}/new-post.html">New Post</a></li>
+            <li><a href="${websiteUrl}/new-post.html">New Podcast</a></li>
             <li><a href="#" onclick="logoutUser()">Log Out</a></li>
             `
     })
