@@ -364,7 +364,11 @@ function registerUser() {
       console.log("Got register info" + data)
 
       window.location.href = websiteUrl + '/index.html';
-    })
+    }).catch(function () {
+      alert('Such login is already in use');
+      document.getElementById('email').value = '';
+      document.getElementById('password').value = '';
+    });
 
 }
 
@@ -435,8 +439,9 @@ function defaultHeaderButtons() {
     })
 }
 
-
 // Audio
+let current_audio_file = null;
+
 function listenToAudioDrop() {
   let audioDrop = document.getElementById("audio-drop");
   let fileContent = document.getElementById("file-content");
