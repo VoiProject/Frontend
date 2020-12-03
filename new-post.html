@@ -37,19 +37,25 @@
     <div class="container" id="post_page_comments">
       <div class="card darken-1">
         <div class="card-content">
-          <form>
-            <h4>Podcast Title</h4>
-            <div class="input-field">
-              <input type="text" id="idea_title" data-length="10">
-              <label for="last_name">Idea Title (max. 63)</label>
-            </div>
-            <h4>Description</h4>
-            <div class="input-field">
-              <textarea class="materialize-textarea" id="idea_short_desc" data-length="255"></textarea>
-              <label for="textarea1">(max. 255)</label>
-            </div>
 
-            <div id="audio-drop" class="input-field" style="
+          <h4>Podcast Title</h4>
+          <div class="input-field">
+            <input type="text" id="idea_title" data-length="10">
+            <label for="last_name">(max. 63)</label>
+          </div>
+          <h4>Description</h4>
+          <div class="input-field">
+            <textarea class="materialize-textarea" id="idea_short_desc" data-length="255"></textarea>
+            <label for="textarea1">(max. 255)</label>
+          </div>
+          <span>
+            <p>Record your voice:</p>
+            <button type="button" id="start" class="btn gren waves-effect waves-light">Start</button>
+            <button type="button" id="stop" class="btn gren waves-effect waves-light">Stop</button>
+            <p id="record-status"></p>
+          </span>
+
+          <div id="audio-drop" class="input-field" style="
                                                             background-color: #4CAF50;
                                                             border-radius: 13vh;
                                                             height: fit-content;
@@ -64,26 +70,26 @@
                                                             padding-left: 20px;
                                                             padding-right: 20px;
                                                      ">
-              <div>
-                <h4 style="color:azure;">Select Audio or drag it here </h4>
-              </div>
-              <input name="userfile" type="file" id="file-content" style="display: none;" />
+            <div>
+              <h4 style="color:azure;">Select Audio or drag it here </h4>
             </div>
-            <div id="audio-display">
-            </div>
+            <input name="userfile" type="file" id="file-content" style="display: none;" />
+          </div>
+          <div id="audio-display">
+          </div>
 
 
-            <h4>Transcription</h4>
-            <div class="input-field">
-              <textarea class="materialize-textarea" id="idea_full_desc" data-length="1023"></textarea>
-              <label for="textarea1">(max. 1023)</label>
-            </div>
+          <h4>Transcription</h4>
+          <div class="input-field">
+            <textarea class="materialize-textarea" id="idea_full_desc" data-length="1023"></textarea>
+            <label for="textarea1">(max. 1023)</label>
+          </div>
 
 
-            <button type="button" class="btn gren waves-effect waves-light" name="action" onclick="addPost()">Submit
-              <i class="material-icons right">send</i>
-            </button>
-          </form>
+          <button type="button" class="btn gren waves-effect waves-light" name="action" onclick="addPost()">Submit
+            <i class="material-icons right">send</i>
+          </button>
+
         </div>
       </div>
     </div>
@@ -98,6 +104,7 @@
   <script src="js/materialize.js"></script>
   <script src="js/init.js"></script>
   <script src="js/scripts.js"></script>
+  <script src="js/voice.js"></script>
   <script>
     let id = getCookie('user_id');
 
@@ -106,6 +113,10 @@
     } else {
       defaultHeaderButtons();
     }
+
+    document.querySelector('#start').disabled = false;
+    document.querySelector('#stop').disabled = true;
+
     fillContent();
     listenToAudioDrop();
   </script>

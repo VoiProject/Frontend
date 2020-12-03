@@ -213,7 +213,9 @@ function deletePost(id) {
     .then((request) => request.json())
     .then(res => {
       window.location.href = websiteUrl + '/index.html';
-    })
+    }).catch((error) => {
+      window.alert('You cannot delete this post');
+    });
 }
 
 function getProfileInfo() {
@@ -281,7 +283,7 @@ function addPost() {
       window.location.href = websiteUrl + '/post.html?id=' + data['post_id'];
     })
     .catch((error) => {
-      window.alert('Something went wrong! Try again later...')
+      window.alert('Something went wrong! Please add title and audio')
     });
 }
 
@@ -304,6 +306,8 @@ function addComment() {
     .then(response => response.json())
     .then(data => {
       window.location.href = websiteUrl + '/post.html?id=' + postId;
+    }).catch((error) => {
+      window.alert('Comment text has to be not empty')
     });
 }
 
@@ -483,10 +487,10 @@ const createAudio = audio => {
   const audioEl = document.createElement('audio')
   audioEl.setAttribute('controls', '')
   audioEl.src = URL.createObjectURL(audio)
+  audioEl.preload = "metadata";
   let audioDisplay = document.getElementById("audio-display");
   audioDisplay.innerHTML = "";
   audioDisplay.append(audioEl)
-  // audioEl.play()
-  // URL.revokeObjectURL(audio)
-  current_audio_file = file;
+  current_audio_file = audio;
 }
+
