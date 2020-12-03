@@ -22,9 +22,30 @@
   font-weight: bold;
 }
 
-#main_feed, #post_page {
+#main_feed, #post_page, #post_page_comments, #feed_pagination, #search_line {
     margin: 0;
     position: relative;
     left: 50%;
     transform: translateX(-50%);
+}
+
+.likes {
+  float: right;
+  cursor: pointer;
+  height: inherit;
+}
+
+.count-num {
+  font-size: 20px;
+  color: rgb(145, 145, 145);
+  padding: 0px 8px 0px 16px;
+  margin-top: -3px;
+}
+
+.material-icons {
+  font-size: 18px !important;
+}
+
+.in-card {
+  margin-top: -25px;
 }

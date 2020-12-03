@@ -31,19 +31,27 @@
   <div class="row">
     <div class="container" id="post_page">
 
-
+    </div>
+  </div>
+  <div class="row">
+    <div class="container" id="post_page_comments">
       <div class="card darken-1">
         <div class="card-content">
           <form>
-            <h4>Podcast Title</h4>
+            <h4>Idea Title</h4>
             <div class="input-field">
               <input type="text" id="idea_title" data-length="10">
-              <label for="last_name">Podcast Title (max. 63)</label>
+              <label for="last_name">Idea Title (max. 63)</label>
             </div>
-            <h4>Description</h4>
+            <h4>Short Description</h4>
             <div class="input-field">
               <textarea class="materialize-textarea" id="idea_short_desc" data-length="255"></textarea>
-              <label for="textarea1">Description (max. 255)</label>
+              <label for="textarea1">Short Description (max. 255)</label>
+            </div>
+            <h4>Full Description</h4>
+            <div class="input-field">
+              <textarea class="materialize-textarea" id="idea_full_desc" data-length="1023"></textarea>
+              <label for="textarea1">Full Description (max. 1023)</label>
             </div>
 
             <div id="audio-drop" class="input-field" style="
@@ -64,19 +72,16 @@
               <div>
                 <h4 style="color:azure;">Select Audio or drag it here </h4>
               </div>
-              <input name="userfile" type="file" id="file-content" style="display: none;"/>
+              <input name="userfile" type="file" id="file-content" style="display: none;" />
             </div>
             <div id="audio-display">
             </div>
-
-            <button type="button" class="btn waves-effect waves-light" type="submit" name="action"
-              onclick="addPost()">Submit
+            <button type="button" class="btn gren waves-effect waves-light" name="action" onclick="addPost()">Submit
               <i class="material-icons right">send</i>
             </button>
           </form>
         </div>
       </div>
-
     </div>
   </div>
 
@@ -92,9 +97,6 @@
   <script>
     let id = getCookie('user_id');
 
-    let navDesktop = document.getElementById('nav-desktop');
-    let navMobile = document.getElementById('nav-mobile');
-
     if (id == null) {
       window.location.href = websiteUrl + "/login.html";
     } else {
@@ -102,7 +104,6 @@
     }
     fillContent();
     listenToAudioDrop();
-
   </script>
 </body>
 

@@ -63,21 +63,17 @@
   <script src="js/init.js"></script>
   <script src="js/scripts.js"></script>
   <script>
-    let email = window.localStorage.getItem('user_email');
     let id = getCookie('user_id');
 
-    let navDesktop = document.getElementById('nav-desktop');
-    let navMobile = document.getElementById('nav-mobile');
-
     if (id == null) {
-      let navDesktop = document.getElementById('nav-desktop');
-      let navMobile = document.getElementById('nav-mobile');
-      navDesktop.innerHTML += `<li><a href="${websiteUrl}/login.html">Log In</a></li>`;
-      navMobile.innerHTML += `<li><a href="${websiteUrl}/login.html">Log In</a></li>`;
+        let navDesktop = document.getElementById('nav-desktop');
+        let navMobile = document.getElementById('nav-mobile');
+        navDesktop.innerHTML += `<li><a href="${websiteUrl}/login.html">Log In</a></li>`;
+        navMobile.innerHTML += `<li><a href="${websiteUrl}/login.html">Log In</a></li>`;
     } else {
-      defaultHeaderButtons();
+        defaultHeaderButtons();
 
-      window.location.href = `${websiteUrl}/index.html`;
+        window.location.href = `${websiteUrl}/index.html`;
     }
     fillContent();
   </script>

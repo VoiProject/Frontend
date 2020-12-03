@@ -13,6 +13,8 @@
 
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
@@ -28,8 +30,27 @@
       <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     </div>
   </nav>
+
+  <div class="row" style="margin-top: 16px">
+    <div class="col s12 m9 l6" id="post_page">
+
+      <span class="input-field">
+        <input type="text" id="query_text">
+        <label for="query_text">Search...</label>
+        <a class="waves-effect waves-dark white black-text btn-flat" type="submit" name="action"
+          onclick="activateSearch(1)" style="float: right; margin-top:-50px"><i
+            class="material-icons right">search</i></a>
+      </span>
+
+    </div>
+  </div>
+
   <div class="row">
     <div class="col s12 m9 l6" id="main_feed">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m9 l6" id="feed_pagination">
     </div>
   </div>
 
@@ -49,10 +70,20 @@
       console.log("Has no id cookie");
       window.location.href = websiteUrl + "/login.html";
     } else {
-        defaultHeaderButtons();
-    }
-    fillContent();
+      fetch(api + 'user/' + id)
+        .then(response => response.json())
+        .then(result => {
+          let login = result['login'];
 
+          if (id == null) {
+            window.location.href = websiteUrl + "/login.html";
+          } else {
+            defaultHeaderButtons();
+          }
+        })
+    }
+
+    fillContent();
     window.onload = getFeed;
   </script>
 

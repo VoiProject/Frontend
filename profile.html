@@ -4,7 +4,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
-  <title>Voi - Post Preview</title>
+  <title>Voi - Profile Preview</title>
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -29,25 +29,8 @@
   </nav>
 
   <div class="row">
-    <div class="container" id="post_page">
+    <div class="container" id="main_feed">
 
-    </div>
-    <div class="container" id="post_page_comments">
-      <div class="card darken-1">
-        <div class="card-content">
-          <form>
-            <h5>Your Comment</h5>
-            <div class="input-field">
-              <textarea class="materialize-textarea" id="idea_comment" data-length="1023"></textarea>
-              <label for="textarea1">Your Comment (max. 1023)</label>
-            </div>
-            <button type="button" class="btn waves-effect waves-light green" type="submit" name="action"
-              onclick="addComment()">Submit
-              <i class="material-icons right">send</i>
-            </button>
-          </form>
-        </div>
-      </div>
     </div>
   </div>
 
@@ -69,7 +52,7 @@
       defaultHeaderButtons();
     }
     fillContent();
-    window.onload = getPostInfo;
+    window.onload = getProfileInfo;
   </script>
 
 </body>
