@@ -333,7 +333,7 @@ async function loginUser() {
       window.location.href = websiteUrl + '/index.html';
     })
     .catch(function () {
-      alert('Wrong password and email comination!');
+      alert('Wrong password and login combination!');
       document.getElementById('email').value = '';
       document.getElementById('password').value = '';
     });
@@ -411,7 +411,7 @@ let footerContent = `
     </div>
     <div class="footer-copyright">
       <div class="container">
-        Made by Yarema Sergei and Mykita Oliinyk
+        Made by Yarema Sergei and Mykyta Oliinyk
       </div>
     </div>
   `
